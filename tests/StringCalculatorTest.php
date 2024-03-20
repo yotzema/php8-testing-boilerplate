@@ -40,11 +40,11 @@ final class StringCalculatorTest extends TestCase
     {
         $calculator = new StringCalculator();
 
-        $op = "2;12";
+        $op = "//;\n1;2;3";
 
         $result = $calculator->add($op);
 
-        $this->assertEquals(14,$result);
+        $this->assertEquals(6,$result);
     }
     /**
      * @test

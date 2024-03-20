@@ -9,17 +9,18 @@ use Exception;
     /**
      * @throws Exception
      */
-    public function add(string $numbers = ""): int|array
+    public function add(string $numbers = ""): int
     {
+      $delimiters = '/[;,]/';
       if(strlen($numbers) == 0) return 0;
       if(strlen($numbers) == 1) return intval($numbers);
       if($this->isNegativeSequence($numbers)){
           throw new Exception("No se admiten números negativos");
       }
-      //$delimiters = '/[;,]/';
-      $values = $this->parsingWithMultipleDelimiters($numbers);
 
-      //$values = explode(",", $numbers);
+      $matches = $this->parsingWithMultipleDelimiters($numbers);
+      $values = preg_split($delimiters,$matches[2]);
+
 
       $validationNumbers = $this->areNumbersOutOfBounds($values);
 
@@ -27,7 +28,11 @@ use Exception;
           $outOfBoundsPos = $validationNumbers['position'];
           unset($values[$outOfBoundsPos]);
       }
+
+      //$delimiters = '/[;,]/';
       //$values = preg_split($delimiters,$numbers);
+
+
 
 
       return array_sum($values);
@@ -35,11 +40,12 @@ use Exception;
     }
     public function parsingWithMultipleDelimiters(string $numbers) : array
     {
-        $delimiters = '/[;,]/';
+        $pattern = "/\/\/(.)\n(\d+(?:;\d+)*)/";
 
-        $values = preg_split($delimiters,$numbers);
 
-        return $values;
+        preg_match($pattern,$numbers,$matches);
+
+        return $matches;
     }
     public function isNegativeSequence(string $numbers): bool
     {
