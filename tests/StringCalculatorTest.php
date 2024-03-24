@@ -40,7 +40,7 @@ final class StringCalculatorTest extends TestCase
     {
         $calculator = new StringCalculator();
 
-        $op = "//;\n1;2;3";
+        $op = "//++\n1++2++3";
 
         $result = $calculator->add($op);
 
@@ -74,6 +74,4 @@ final class StringCalculatorTest extends TestCase
 
         $this->assertEquals(false,$result['outOfBounds']);
     }
-
-
 }

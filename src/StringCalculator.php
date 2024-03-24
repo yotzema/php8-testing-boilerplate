@@ -4,6 +4,9 @@ namespace Deg540\PHPTestingBoilerplate;
 
 use Exception;
 
+
+
+
  class StringCalculator
 {
     /**
@@ -11,7 +14,7 @@ use Exception;
      */
     public function add(string $numbers = ""): int
     {
-      $delimiters = '/[;,]/';
+      $delimiters = '/\W/';
       if(strlen($numbers) == 0) return 0;
       if(strlen($numbers) == 1) return intval($numbers);
       if($this->isNegativeSequence($numbers)){
@@ -40,7 +43,7 @@ use Exception;
     }
     public function parsingWithMultipleDelimiters(string $numbers) : array
     {
-        $pattern = "/\/\/(.)\n(\d+(?:;\d+)*)/";
+        $pattern = "/\/\/(\W+)(\d+(?:\W+\d+)*)/m";
 
 
         preg_match($pattern,$numbers,$matches);
