@@ -4,8 +4,15 @@ namespace Deg540\PHPTestingBoilerplate;
 
 use Exception;
 
+$numbers = "//[+][-]\n1+2%3";
 
+$pattern = "/\/\/([^\w\[]|\[\W]+)+(\d+(?:\W+\d+)*)/m";
 
+//$pattern = "/\/\/(\W+)(\d+(?:\W+\d+)*)/m";
+
+preg_match($pattern,$numbers,$matches);
+
+var_dump($matches);
 
  class StringCalculator
 {
@@ -43,8 +50,9 @@ use Exception;
     }
     public function parsingWithMultipleDelimiters(string $numbers) : array
     {
-        $pattern = "/\/\/(\W+)(\d+(?:\W+\d+)*)/m";
+        //$pattern = "/\/\/(\W+)(\d+(?:\W+\d+)*)/m";
 
+        $pattern = "/\/\/\W+|((\[\W]+)+)(\d+(?:\W+|\1\d+)*)/m";
 
         preg_match($pattern,$numbers,$matches);
 
